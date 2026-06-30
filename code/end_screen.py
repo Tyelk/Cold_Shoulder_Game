@@ -1,3 +1,4 @@
+import os
 import pygame
 import common
 from element import Sprite, ToggleImage, Button
@@ -5,6 +6,7 @@ from transition import Transition
 
 class EndScreen():
     def __init__(self):
+        self.script_dir = os.path.dirname(__file__)
         self.finished_updating = False
 
         # setup visuals
@@ -17,11 +19,16 @@ class EndScreen():
         self.create_end_screen()
 
         # setup audio
-        self.success_sfx = pygame.mixer.Sound("../audio/success.mp3")
-        self.fail_sfx = pygame.mixer.Sound("../audio/fail.mp3")
-        self.bad_grade_sfx = pygame.mixer.Sound("../audio/bad_score.mp3")
-        self.ok_grade_sfx = pygame.mixer.Sound("../audio/ok_score.mp3")
-        self.great_grade_sfx = pygame.mixer.Sound("../audio/great_score.mp3")
+        success_sfx_path = os.path.join(self.script_dir, "../audio", "success.mp3")
+        fail_sfx_path = os.path.join(self.script_dir, "../audio", "fail.mp3")
+        bad_grade_sfx_path = os.path.join(self.script_dir, "../audio", "bad_score.mp3")
+        ok_grade_sfx_path = os.path.join(self.script_dir, "../audio", "ok_score.mp3")
+        great_grade_sfx_path = os.path.join(self.script_dir, "../audio", "great_score.mp3")
+        self.success_sfx = pygame.mixer.Sound(success_sfx_path)
+        self.fail_sfx = pygame.mixer.Sound(fail_sfx_path)
+        self.bad_grade_sfx = pygame.mixer.Sound(bad_grade_sfx_path)
+        self.ok_grade_sfx = pygame.mixer.Sound(ok_grade_sfx_path)
+        self.great_grade_sfx = pygame.mixer.Sound(great_grade_sfx_path)
         common.all_sound_effects.append(self.success_sfx)
         common.all_sound_effects.append(self.fail_sfx)
         common.all_sound_effects.append(self.bad_grade_sfx)
@@ -31,7 +38,7 @@ class EndScreen():
 
     def create_text_element(self, font_size, font_text, font_colour, text_pos, pos_left=True, 
                             grade=False):
-        font_path = "../fonts/boldpixels.boldpixels.ttf"
+        font_path = os.path.join(self.script_dir, "../fonts", "boldpixels.boldpixels.ttf")
         font_antialias = False
 
         # create font and create sprite
@@ -125,9 +132,9 @@ class EndScreen():
         self.create_text_element(body_text_size, reverse_font_text, font_colour, reverse_text_pos)
 
         # tickbox
-        empty_tickbox_path = "../graphics/empty_tickbox.png"
-        success_tickbox_path = "../graphics/success_tickbox.png"
-        failure_tickbox_path = "../graphics/failure_tickbox.png"
+        empty_tickbox_path = os.path.join(self.script_dir, "../graphics", "empty_tickbox.png")
+        success_tickbox_path = os.path.join(self.script_dir, "../graphics", "success_tickbox.png")
+        failure_tickbox_path = os.path.join(self.script_dir, "../graphics", "failure_tickbox.png")
         tickbox_size = common.main_canvas_size * 0.05
         gw_tb_name = "gave_way"
         space_tb_name = "spacing"

@@ -59,6 +59,7 @@ class Button(pygame.sprite.Sprite):
                  hover_main_colour = common.COLOUR_DARK_OFF_WHITE, 
                  hover_secondary_colour = common.COLOUR_DARK_GRAY):
         super().__init__()
+        self.script_dir = os.path.dirname(__file__)
         # general attributes
         self.text = text
         self.name = name
@@ -95,9 +96,12 @@ class Button(pygame.sprite.Sprite):
         self.create()
 
         # sounds
-        self.click_down_sfx = pygame.mixer.Sound("../audio/click_down.mp3")
-        self.click_up_sfx = pygame.mixer.Sound("../audio/click_up.mp3")
-        self.hover_sfx = pygame.mixer.Sound("../audio/hover.mp3")
+        click_down_sfx_path = os.path.join(self.script_dir, "../audio", "click_down.mp3")
+        click_up_sfx_path = os.path.join(self.script_dir, "../audio", "click_up.mp3")
+        hover_sfx_path = os.path.join(self.script_dir, "../audio", "hover.mp3")
+        self.click_down_sfx = pygame.mixer.Sound(click_down_sfx_path)
+        self.click_up_sfx = pygame.mixer.Sound(click_up_sfx_path)
+        self.hover_sfx = pygame.mixer.Sound(hover_sfx_path)
         common.all_sound_effects.append(self.click_down_sfx)
         common.all_sound_effects.append(self.click_up_sfx)
         common.all_sound_effects.append(self.hover_sfx)
@@ -105,8 +109,8 @@ class Button(pygame.sprite.Sprite):
 
     def create(self):
         # font
-        self.font = pygame.font.Font("../fonts/boldpixels.boldpixels.ttf", 
-                                     self.font_size)
+        font_path = os.path.join(self.script_dir, "../fonts", "boldpixels.boldpixels.ttf")
+        self.font = pygame.font.Font(font_path, self.font_size)
         self.font_surf = self.font.render(self.text, False, self.font_colour)
         self.font_rect = self.font_surf.get_frect()
 
@@ -386,6 +390,7 @@ class ImageButton(Image):
                  shadow_offset=(0,0), shadow_colour=(0,0,0,0), shadow_scale=(0,0)):
         super().__init__(default_image, rect, name, layer, 
                          shadow_offset, shadow_colour, shadow_scale)
+        self.script_dir = os.path.dirname(__file__)
         self.image = default_image
         self.default_image = default_image
         self.hover_image = hover_image
@@ -402,9 +407,12 @@ class ImageButton(Image):
         self.clicked = False
 
         # sounds
-        self.click_down_sfx = pygame.mixer.Sound("../audio/click_down.mp3")
-        self.click_up_sfx = pygame.mixer.Sound("../audio/click_up.mp3")
-        self.hover_sfx = pygame.mixer.Sound("../audio/hover.mp3")
+        click_down_sfx_path = os.path.join(self.script_dir, "../audio", "click_down.mp3")
+        click_up_sfx_path = os.path.join(self.script_dir, "../audio", "click_up.mp3")
+        hover_sfx_path = os.path.join(self.script_dir, "../audio", "hover.mp3")
+        self.click_down_sfx = pygame.mixer.Sound(click_down_sfx_path)
+        self.click_up_sfx = pygame.mixer.Sound(click_up_sfx_path)
+        self.hover_sfx = pygame.mixer.Sound(hover_sfx_path)
         common.all_sound_effects.append(self.click_down_sfx)
         common.all_sound_effects.append(self.click_up_sfx)
         common.all_sound_effects.append(self.hover_sfx)
@@ -514,6 +522,7 @@ class ToggleImage(Image):
 class VolumeSlider(pygame.sprite.Sprite):
     def __init__(self, slider_length, pos, type):
         super().__init__()
+        self.script_dir = os.path.dirname(__file__)
         # setup
         self.pos = pos
         self.type = type
@@ -531,9 +540,12 @@ class VolumeSlider(pygame.sprite.Sprite):
         button_height_scale_multiplier = 3
 
         # load images from file
-        default_img = pygame.image.load("../graphics/slider_button_default.png").convert_alpha()
-        hover_img = pygame.image.load("../graphics/slider_button_hover.png").convert_alpha()
-        line_img = pygame.image.load("../graphics/slider_line.png").convert_alpha()
+        default_img_path = os.path.join(self.script_dir, "../graphics", "slider_button_default.png")
+        hover_img_path = os.path.join(self.script_dir, "../graphics", "slider_button_hover.png")
+        line_img_path = os.path.join(self.script_dir, "../graphics", "slider_line.png")
+        default_img = pygame.image.load(default_img_path).convert_alpha()
+        hover_img = pygame.image.load(hover_img_path).convert_alpha()
+        line_img = pygame.image.load(line_img_path).convert_alpha()
 
         # scale line to given length
         line_width_to_height_ratio = line_img.get_width() / line_img.get_height()
@@ -685,6 +697,7 @@ class VolumeSlider(pygame.sprite.Sprite):
 class ToggleTutorialButton(pygame.sprite.Sprite):
     def __init__(self, pos, size, click_depth):
         super().__init__()
+        self.script_dir = os.path.dirname(__file__)
         self.click_depth = click_depth
         self.original_pos = pos
         self.load_images(pos, size)
@@ -696,9 +709,12 @@ class ToggleTutorialButton(pygame.sprite.Sprite):
         self.click_up = False
 
         # sounds
-        self.click_down_sfx = pygame.mixer.Sound("../audio/click_down.mp3")
-        self.click_up_sfx = pygame.mixer.Sound("../audio/click_up.mp3")
-        self.hover_sfx = pygame.mixer.Sound("../audio/hover.mp3")
+        click_down_sfx_path = os.path.join(self.script_dir , "../audio", "click_down.mp3")
+        click_up_sfx_path = os.path.join(self.script_dir , "../audio", "click_up.mp3")
+        hover_sfx_path = os.path.join(self.script_dir , "../audio", "hover.mp3")
+        self.click_down_sfx = pygame.mixer.Sound(click_down_sfx_path)
+        self.click_up_sfx = pygame.mixer.Sound(click_up_sfx_path)
+        self.hover_sfx = pygame.mixer.Sound(hover_sfx_path)
         common.all_sound_effects.append(self.click_down_sfx)
         common.all_sound_effects.append(self.click_up_sfx)
         common.all_sound_effects.append(self.hover_sfx)
@@ -706,8 +722,8 @@ class ToggleTutorialButton(pygame.sprite.Sprite):
     
     def load_images(self, pos, size):
         # load images
-        active_image_path = "../graphics/success_tickbox.png"
-        inactive_image_path = "../graphics/failure_tickbox.png"
+        active_image_path = os.path.join(self.script_dir, "../graphics", "success_tickbox.png")
+        inactive_image_path = os.path.join(self.script_dir, "../graphics", "failure_tickbox.png")
         active_img = pygame.image.load(active_image_path).convert_alpha()
         active_img_scaled = pygame.transform.scale(active_img, size)
         inactive_img = pygame.image.load(inactive_image_path).convert_alpha()

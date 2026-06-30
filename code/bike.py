@@ -6,6 +6,7 @@ import os
 class Bike(pygame.sprite.Sprite):
     def __init__(self, scale, layer):
         super().__init__()
+        self.script_dir = os.path.dirname(__file__)
         self._layer = layer
 
         # frames
@@ -36,8 +37,8 @@ class Bike(pygame.sprite.Sprite):
 
     def load_bike(self, scale):
         # load animations
-        bike_cycle_path = "../animations/bike_cycle"
-        bike_indicate_path = "../animations/bike_indicate_left"
+        bike_cycle_path = os.path.join(self.script_dir, "../animations", "bike_cycle")
+        bike_indicate_path = os.path.join(self.script_dir, "../animations", "bike_indicate_left")
         self.load_frames(bike_cycle_path, scale, self.cycle_frames)
         self.load_frames(bike_indicate_path, scale, self.indicate_frames)
 

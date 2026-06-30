@@ -1,3 +1,4 @@
+import os
 import pygame
 import common
 from tutorial import Tutorial
@@ -9,6 +10,7 @@ from pygame.sprite import LayeredUpdates
 
 class Game():
     def __init__(self):
+        self.script_dir = os.path.dirname(__file__)
         self.transition = Transition()
         self.game_loaded = False
         self.game_end = False
@@ -57,8 +59,10 @@ class Game():
         self.tutorial = Tutorial(self.player.rect, self.goal.rect)
 
         # audio
-        self.goal_reached_sfx = pygame.mixer.Sound("../audio/goal_reached.mp3")
-        self.crash_sfx = pygame.mixer.Sound("../audio/crash.mp3")
+        goal_reached_sfx_path = os.path.join(self.script_dir, "../audio", "goal_reached.mp3")
+        crash_sfx_path = os.path.join(self.script_dir, "../audio", "crash.mp3")
+        self.goal_reached_sfx = pygame.mixer.Sound(goal_reached_sfx_path)
+        self.crash_sfx = pygame.mixer.Sound(crash_sfx_path)
         common.all_sound_effects.append(self.goal_reached_sfx)
         common.all_sound_effects.append(self.crash_sfx)
         
@@ -66,34 +70,40 @@ class Game():
 
     def load_game_elements(self):
         # road
-        road_img = pygame.image.load("../graphics/road.png").convert_alpha()
+        road_img_path = os.path.join(self.script_dir, "../graphics", "road.png")
+        road_img = pygame.image.load(road_img_path).convert_alpha()
         road_img_scaled = pygame.transform.scale(road_img, (common.main_canvas_size))
         road_rect = road_img_scaled.get_frect(center = common.main_canvas_size / 2)
         road = Image(road_img_scaled, road_rect, "road", 0)
 
-        # # roundabout
-        roundabout_img = pygame.image.load("../graphics/roundabout.png").convert_alpha()
+        # roundabout
+        roundabout_img_path = os.path.join(self.script_dir, "../graphics", "roundabout.png")
+        roundabout_img = pygame.image.load(roundabout_img_path).convert_alpha()
         roundabout_img_scaled = pygame.transform.scale(roundabout_img, ((common.main_canvas_size) * 0.10))
         roundabout_rect = roundabout_img_scaled.get_frect(center = common.main_canvas_size / 2)
         roundabout = Image(roundabout_img_scaled, roundabout_rect, "roundabout", 1)
 
         # grass sections
-        top_left_grass_img = pygame.image.load("../graphics/top_left_grass.png").convert_alpha()
+        top_left_grass_img_path = os.path.join(self.script_dir, "../graphics", "top_left_grass.png")
+        top_left_grass_img = pygame.image.load(top_left_grass_img_path).convert_alpha()
         top_left_grass_scaled = pygame.transform.scale(top_left_grass_img, ((common.main_canvas_size) * 0.40))
         top_left_grass_rect = top_left_grass_scaled.get_frect(topleft = (0,0))
         top_left_grass = Image(top_left_grass_scaled, top_left_grass_rect, "top_left_grass", 1)
 
-        top_right_grass_img = pygame.image.load("../graphics/top_right_grass.png").convert_alpha()
+        top_right_grass_img_path = os.path.join(self.script_dir, "../graphics", "top_right_grass.png")
+        top_right_grass_img = pygame.image.load(top_right_grass_img_path).convert_alpha()
         top_right_grass_scaled = pygame.transform.scale(top_right_grass_img, ((common.main_canvas_size) * 0.40))
         top_right_grass_rect = top_right_grass_scaled.get_frect(topright = (common.main_canvas_size.x, 0))
         top_right_grass = Image(top_right_grass_scaled, top_right_grass_rect, "top_right_grass", 1)
 
-        bot_left_grass_img = pygame.image.load("../graphics/bot_left_grass.png").convert_alpha()
+        bot_left_grass_img_path = os.path.join(self.script_dir, "../graphics", "bot_left_grass.png")
+        bot_left_grass_img = pygame.image.load(bot_left_grass_img_path).convert_alpha()
         bot_left_grass_scaled = pygame.transform.scale(bot_left_grass_img, ((common.main_canvas_size) * 0.40))
         bot_left_grass_rect = bot_left_grass_scaled.get_frect(bottomleft = (0, common.main_canvas_size.x))
         bot_left_grass = Image(bot_left_grass_scaled, bot_left_grass_rect, "bot_left_grass", 1)
 
-        bot_right_grass_img = pygame.image.load("../graphics/bot_right_grass.png").convert_alpha()
+        bot_right_grass_img_path = os.path.join(self.script_dir, "../graphics", "bot_right_grass.png")
+        bot_right_grass_img = pygame.image.load(bot_right_grass_img_path).convert_alpha()
         bot_right_grass_scaled = pygame.transform.scale(bot_right_grass_img, ((common.main_canvas_size) * 0.40))
         bot_right_grass_rect = bot_right_grass_scaled.get_frect(bottomright = common.main_canvas_size)
         bot_right_grass = Image(bot_right_grass_scaled, bot_right_grass_rect, "bot_right_grass", 1)
@@ -202,7 +212,8 @@ class Game():
 
     def load_goal(self):
         # create goal sprite
-        goal_img = pygame.image.load("../graphics/ice_cream.png").convert_alpha()
+        goal_img_path = os.path.join(self.script_dir, "../graphics", "ice_cream.png")
+        goal_img = pygame.image.load(goal_img_path).convert_alpha()
         goal_img = pygame.transform.scale(goal_img, (common.main_canvas_size.x * 0.04, 
                                                      common.main_canvas_size.y * 0.07))
         goal_rect = goal_img.get_frect(center = (common.main_canvas_size.x * 0.95, 
@@ -223,8 +234,8 @@ class Game():
 
     def load_pause_menu(self):
         # pause button
-        pause_img_path = "../graphics/small_gear.png"
-        pause_img_alt_path = "../graphics/small_gear_hover.png"
+        pause_img_path = os.path.join(self.script_dir, "../graphics", "small_gear.png")
+        pause_img_alt_path = os.path.join(self.script_dir, "../graphics", "small_gear_hover.png")
         pause_button_size = common.main_canvas_size * 0.05
         pause_button_pos = (common.main_canvas_size.x * 0.99, 
                                common.main_canvas_size.y * 0.01)
@@ -250,13 +261,13 @@ class Game():
         menu_background.fill(common.COLOUR_DARK_MIST)
         menu_background_rect = menu_background.get_frect()
 
-        menu_img = pygame.image.load("../graphics/clipboard_background_small.png") \
-                                                                            .convert_alpha()
+        menu_img_path = os.path.join(self.script_dir, "../graphics", "clipboard_background_small.png")
+        menu_img = pygame.image.load(menu_img_path).convert_alpha()
         menu_img_scaled = pygame.transform.scale(menu_img, menu_size)
         menu_rect = menu_img_scaled.get_frect()
 
         # text
-        font_path = "../fonts/boldpixels.boldpixels.ttf"
+        font_path = os.path.join(self.script_dir, "../fonts", "boldpixels.boldpixels.ttf")
         menu_title_font_size = 60
         contents_fonts_size = 40
         menu_title_font_text = "PAUSED"
@@ -559,7 +570,8 @@ class Game():
         self.reset_game()
 
         # play game music
-        self.menu_music = pygame.mixer.music.load("../audio/play_song.mp3")
+        menu_music_path = os.path.join(self.script_dir, "../audio", "play_song.mp3")
+        self.menu_music = pygame.mixer.music.load(menu_music_path)
         pygame.mixer.music.play(-1)
 
         # game loop

@@ -1,3 +1,4 @@
+import os
 import pygame
 import common
 from element import AnimatedSprite, Button, Animation, Sprite
@@ -14,6 +15,7 @@ class Page():
 class Tutorial(pygame.sprite.Sprite):
     def __init__(self, player_rect, goal_rect):
         super().__init__()
+        self.script_dir = os.path.dirname(__file__)
         self.active = True
 
         # page contents
@@ -36,13 +38,20 @@ class Tutorial(pygame.sprite.Sprite):
             self.create_plain_text_page(num)
 
         # create animated pages
-        self.create_animated_page("../animations/drive_forward", 6)
-        self.create_animated_page("../animations/reverse", 7)
-        self.create_animated_page("../animations/brake", 8)
-        self.create_animated_page("../animations/turn_left", 9)
-        self.create_animated_page("../animations/turn_right", 10)
-        self.create_animated_page("../animations/indicate_left", 11)
-        self.create_animated_page("../animations/indicate_right", 12)
+        drive_forward_path = os.path.join(self.script_dir, "../animations", "drive_forward")
+        self.create_animated_page(drive_forward_path, 6)
+        reverse_path = os.path.join(self.script_dir, "../animations", "reverse")
+        self.create_animated_page(reverse_path, 7)
+        brake_path = os.path.join(self.script_dir, "../animations", "brake")
+        self.create_animated_page(brake_path, 8)
+        turn_left_path = os.path.join(self.script_dir, "../animations", "turn_left")
+        self.create_animated_page(turn_left_path, 9)
+        turn_right_path = os.path.join(self.script_dir, "../animations", "turn_right")
+        self.create_animated_page(turn_right_path, 10)
+        indicate_left_path = os.path.join(self.script_dir, "../animations", "indicate_left")
+        self.create_animated_page(indicate_left_path, 11)
+        indicate_right_path = os.path.join(self.script_dir, "../animations", "indicate_right")
+        self.create_animated_page(indicate_right_path, 12)
 
 
     def create_text(self):
@@ -70,7 +79,8 @@ class Tutorial(pygame.sprite.Sprite):
         self.base_rect = self.base_surf.get_frect()
 
         # create arrow
-        arrow_img = pygame.image.load("../graphics/arrow.png").convert_alpha()
+        arrow_path = os.path.join(self.script_dir, "../graphics", "arrow.png")
+        arrow_img = pygame.image.load(arrow_path).convert_alpha()
         self.arrow = pygame.transform.scale(arrow_img, (common.main_canvas_size.x * 0.20,
                                                       common.main_canvas_size.y * 0.12))
         
@@ -82,7 +92,8 @@ class Tutorial(pygame.sprite.Sprite):
             center = (common.main_canvas_size.x / 2, common.main_canvas_size.y / 2))
         
         # font
-        self.font = pygame.font.Font("../fonts/boldpixels.boldpixels.ttf", 50)
+        font_path = os.path.join(self.script_dir, "../fonts", "boldpixels.boldpixels.ttf")
+        self.font = pygame.font.Font(font_path, 50)
         self.font.align = pygame.FONT_CENTER
 
         # buttons

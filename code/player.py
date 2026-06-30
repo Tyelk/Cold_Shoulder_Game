@@ -1,3 +1,4 @@
+import os
 import pygame
 import math
 import common
@@ -5,6 +6,7 @@ import common
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_location, player_scale, layer):
         super().__init__()
+        self.script_dir = os.path.dirname(__file__)
         self.start_location = start_location.copy()
         self._layer = layer
 
@@ -13,9 +15,12 @@ class Player(pygame.sprite.Sprite):
         self.load_images(player_scale)
 
         # audio 
-        self.indicator_on_sfx = pygame.mixer.Sound("../audio/indicator_on.mp3")
-        self.indicator_off_sfx = pygame.mixer.Sound("../audio/indicator_off.mp3")
-        self.reverse_sfx = pygame.mixer.Sound("../audio/reverse.mp3")
+        indicator_on_sfx_path = os.path.join(self.script_dir, "../audio", "indicator_on.mp3")
+        indicator_off_sfx_path = os.path.join(self.script_dir, "../audio", "indicator_off.mp3")
+        reverse_sfx_path = os.path.join(self.script_dir, "../audio", "reverse.mp3")
+        self.indicator_on_sfx = pygame.mixer.Sound(indicator_on_sfx_path)
+        self.indicator_off_sfx = pygame.mixer.Sound(indicator_off_sfx_path)
+        self.reverse_sfx = pygame.mixer.Sound(reverse_sfx_path)
         common.all_sound_effects.append(self.indicator_on_sfx)
         common.all_sound_effects.append(self.indicator_off_sfx)
         common.all_sound_effects.append(self.reverse_sfx)
@@ -28,30 +33,42 @@ class Player(pygame.sprite.Sprite):
         # images are saved to the dictionary depending on booleans used to determine
         # scenarios they will be used for
         # BOOLEAN (left indication, right indication, braking, reversing)
-        default = pygame.image.load("../graphics/car.png").convert_alpha()
+        default_path = os.path.join(self.script_dir, "../graphics", "car.png")
+        default = pygame.image.load(default_path).convert_alpha()
         self.image_dict[(False, False, False, False)] = pygame.transform.scale(default, player_scale)
-        left = pygame.image.load("../graphics/car_ind_left.png").convert_alpha()
+        left_path = os.path.join(self.script_dir, "../graphics", "car_ind_left.png")
+        left = pygame.image.load(left_path).convert_alpha()
         self.image_dict[(True, False, False, False)] = pygame.transform.scale(left, player_scale)
-        right = pygame.image.load("../graphics/car_ind_right.png").convert_alpha()
+        right_path = os.path.join(self.script_dir, "../graphics", "car_ind_right.png")
+        right = pygame.image.load(right_path).convert_alpha()
         self.image_dict[(False, True, False, False)] = pygame.transform.scale(right, player_scale)
-        brake = pygame.image.load("../graphics/car_brake.png").convert_alpha()
+        brake_path = os.path.join(self.script_dir, "../graphics", "car_brake.png")
+        brake = pygame.image.load(brake_path).convert_alpha()
         self.image_dict[(False, False, True, False)] = pygame.transform.scale(brake, player_scale)
-        brake_left = pygame.image.load("../graphics/car_brake_ind_left.png").convert_alpha()
+        brake_left_path = os.path.join(self.script_dir, "../graphics", "car_brake_ind_left.png")
+        brake_left = pygame.image.load(brake_left_path).convert_alpha()
         self.image_dict[(True, False, True, False)] = pygame.transform.scale(brake_left, player_scale)
-        brake_right = pygame.image.load("../graphics/car_brake_ind_right.png").convert_alpha()
+        brake_right_path = os.path.join(self.script_dir, "../graphics", "car_brake_ind_right.png")
+        brake_right = pygame.image.load(brake_right_path).convert_alpha()
         self.image_dict[(False, True, True, False)] = pygame.transform.scale(brake_right, player_scale)
         
-        reverse = pygame.image.load("../graphics/car_reverse.png").convert_alpha()
+        reverse_path = os.path.join(self.script_dir, "../graphics", "car_reverse.png")
+        reverse = pygame.image.load(reverse_path).convert_alpha()
         self.image_dict[(False, False, False, True)] = pygame.transform.scale(reverse, player_scale)
-        reverse_brake = pygame.image.load("../graphics/car_reverse_brake.png").convert_alpha()
+        reverse_brake_path = os.path.join(self.script_dir, "../graphics", "car_reverse_brake.png")
+        reverse_brake = pygame.image.load(reverse_brake_path).convert_alpha()
         self.image_dict[(False, False, True, True)] = pygame.transform.scale(reverse_brake, player_scale)
-        rev_brake_left = pygame.image.load("../graphics/car_reverse_brake_ind_left.png").convert_alpha()
+        rev_brake_left_path = os.path.join(self.script_dir, "../graphics", "car_reverse_brake_ind_left.png")
+        rev_brake_left = pygame.image.load(rev_brake_left_path).convert_alpha()
         self.image_dict[(True, False, True, True)] = pygame.transform.scale(rev_brake_left, player_scale)
-        rev_brake_right = pygame.image.load("../graphics/car_reverse_brake_ind_right.png").convert_alpha()
+        rev_brake_right_path = os.path.join(self.script_dir, "../graphics", "car_reverse_brake_ind_right.png")
+        rev_brake_right = pygame.image.load(rev_brake_right_path).convert_alpha()
         self.image_dict[(False, True, True, True)] = pygame.transform.scale(rev_brake_right, player_scale)
-        rev_left = pygame.image.load("../graphics/car_reverse_ind_left.png").convert_alpha()
+        rev_left_path = os.path.join(self.script_dir, "../graphics", "car_reverse_ind_left.png")
+        rev_left = pygame.image.load(rev_left_path).convert_alpha()
         self.image_dict[(True, False, False, True)] = pygame.transform.scale(rev_left, player_scale)
-        rev_right = pygame.image.load("../graphics/car_reverse_ind_right.png").convert_alpha()
+        rev_right_path = os.path.join(self.script_dir, "../graphics", "car_reverse_ind_right.png")
+        rev_right = pygame.image.load(rev_right_path).convert_alpha()
         self.image_dict[(False, True, False, True)] = pygame.transform.scale(rev_right, player_scale)
     
 

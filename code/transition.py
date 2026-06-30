@@ -1,9 +1,11 @@
+import os
 import pygame
 import common
 from element import Image, Sprite, Shadow
 
 class Transition():
     def __init__(self):
+        self.script_dir = os.path.dirname(__file__)
         # transition variables
         self.surfaces = []
         self.section_count = 10
@@ -22,22 +24,24 @@ class Transition():
         self.audio_playing = False
 
         # sounds
-        self.leave_sfx = pygame.mixer.Sound("../audio/transition_leave.mp3")
-        self.arrive_sfx = pygame.mixer.Sound("../audio/transition_arrive.mp3")
+        leave_sfx_path = os.path.join(self.script_dir, "../audio", "transition_leave.mp3")
+        arrive_sfx_path = os.path.join(self.script_dir, "../audio", "transition_arrive.mp3")
+        self.leave_sfx = pygame.mixer.Sound(leave_sfx_path)
+        self.arrive_sfx = pygame.mixer.Sound(arrive_sfx_path)
         common.all_sound_effects.append(self.leave_sfx)
         common.all_sound_effects.append(self.arrive_sfx)
 
 
     def create_transition(self):
         # create surface 
-        load_img_path = "../graphics/load_screen.png"
+        load_img_path = os.path.join(self.script_dir, "../graphics/", "load_screen.png")
         load_img_size = common.main_canvas_size
 
         load_img = pygame.image.load(load_img_path).convert_alpha()
         load_img_scaled = pygame.transform.scale(load_img, load_img_size)
 
         # loading text
-        font_path = "../fonts/boldpixels.boldpixels.ttf"
+        font_path = os.path.join(self.script_dir, "../fonts/", "boldpixels.boldpixels.ttf")
         font_size = 70
         font_text = "LOADING"
         font_antialias = False

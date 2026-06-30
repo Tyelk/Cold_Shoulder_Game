@@ -1,3 +1,4 @@
+import os
 import pygame
 import common
 from element import Image, Shadow, Button, VolumeSlider, Sprite, ToggleTutorialButton
@@ -7,6 +8,7 @@ from pygame.sprite import LayeredUpdates
 
 class MainMenu():
     def __init__(self):
+        self.script_dir = os.path.dirname(__file__)
         # create groups
         self.all_elements = LayeredUpdates()
         self.all_main_buttons = pygame.sprite.Group()
@@ -21,8 +23,8 @@ class MainMenu():
 
     def load_main_menu(self):
         # main menu elements
-        background_img_path = "../graphics/road_tracks_background.png"
-        title_img_path = "../graphics/title.png"
+        background_img_path = os.path.join(self.script_dir, "../graphics", "road_tracks_background.png")
+        title_img_path = os.path.join(self.script_dir, "../graphics", "title.png")
         background_size = common.main_canvas_size
         title_size = (common.main_canvas_size.x * 0.75, common.main_canvas_size.y * 0.23)
         background_pos = common.main_canvas_size / 2
@@ -93,7 +95,7 @@ class MainMenu():
 
     def load_settings_menu(self):
         # settings menu
-        menu_img_path = "../graphics/clipboard_background_small.png"
+        menu_img_path = os.path.join(self.script_dir, "../graphics", "clipboard_background_small.png")
         background_size = common.main_canvas_size
         menu_size = (common.main_canvas_size.x * 0.6, common.main_canvas_size.x * 0.8)
         screen_center = common.main_canvas_size / 2
@@ -107,7 +109,7 @@ class MainMenu():
         menu_rect = menu_img_scaled.get_frect()
 
         # text
-        font_path = "../fonts/boldpixels.boldpixels.ttf"
+        font_path = os.path.join(self.script_dir, "../fonts", "boldpixels.boldpixels.ttf")
         menu_title_font_size = 60
         contents_fonts_size = 40
         menu_title_font_text = "SETTINGS"
@@ -262,7 +264,8 @@ class MainMenu():
         self.reset_menu()
 
         # play menu music
-        self.menu_music = pygame.mixer.music.load("../audio/menu_song.mp3")
+        music_path = os.path.join(self.script_dir, "../audio", "menu_song.mp3")
+        self.menu_music = pygame.mixer.music.load(music_path)
         pygame.mixer.music.play(-1)
         
         # menu loop

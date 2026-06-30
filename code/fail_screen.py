@@ -1,3 +1,4 @@
+import os
 import pygame
 import common
 from element import Sprite, Button
@@ -6,6 +7,7 @@ from transition import Transition
 
 class FailScreen():
     def __init__(self):
+        self.script_dir = os.path.dirname(__file__)
         self.transition = Transition()
         self.all_elements = pygame.sprite.Group()
         self.all_buttons = pygame.sprite.Group()
@@ -34,13 +36,14 @@ class FailScreen():
 
     def create_screen(self):
         # create background
-        background_img = pygame.image.load("../graphics/bloody_ice_cream.png").convert_alpha()
+        background_img_path = os.path.join(self.script_dir, "../graphics", "bloody_ice_cream.png")
+        background_img = pygame.image.load(background_img_path).convert_alpha()
         scaled_background_img = pygame.transform.scale(background_img, common.main_canvas_size)
         background_rect = scaled_background_img.get_frect(center = common.main_canvas_size / 2)
         background = Sprite(scaled_background_img, background_rect)
 
         # font attributes
-        font_path = "../fonts/boldpixels.boldpixels.ttf"
+        font_path = os.path.join(self.script_dir, "../fonts", "boldpixels.boldpixels.ttf")
         title_font_size = 120
         subtitle_font_size = 50
         font_antialias = False
@@ -144,7 +147,9 @@ class FailScreen():
     def display_screen(self):
         self.reset_display()
 
-        self.fail_music = pygame.mixer.music.load("../audio/fail_song.mp3")
+        # setup
+        fail_music_path = os.path.join(self.script_dir, "../audio", "fail_song.mp3")
+        self.fail_music = pygame.mixer.music.load(fail_music_path)
         self.start_time = pygame.time.get_ticks()
 
         # loop variables
