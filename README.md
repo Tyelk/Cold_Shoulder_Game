@@ -22,3 +22,5 @@ python Cold_Shoulder_Game\code\main.py
 Use the WASD keys to move the blue car and QE to toggle indicators. The objective is to reach the delectable sweet treat while following the road rules as closely as possible. You are graded on how well you follow the road rules.
 
 ## Demo Video
+
+https://github.com/user-attachments/assets/f394dc7e-3e62-4c09-acf2-4d0ccdcb5b70
