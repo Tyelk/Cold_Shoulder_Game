@@ -37,8 +37,17 @@ The objective of the game is to reach the delectable sweet treat while following
 | Toggle Left Indicator | `Q` |
 | Toggle Right Indicator | `E` |
 
-
-
 ## Demo Video
 
 <video src="https://github.com/user-attachments/assets/f394dc7e-3e62-4c09-acf2-4d0ccdcb5b70" controls width="100%"></video>
+
+## File Structure
+```
+├── animations/
+├── audio/
+├── code/
+├── fonts/
+├── graphics/
+├── .gitignore
+└── README.md
+```
